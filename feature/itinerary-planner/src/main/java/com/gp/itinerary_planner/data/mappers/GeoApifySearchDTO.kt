@@ -11,22 +11,22 @@ data class GeoApifySearchResponse(
 
 @JsonClass(generateAdapter = true)
 data class GeoApifySearchLocationResult(
-    val name: String,
-    val country: String,
-    @Json(name = "country_code") val countryCode: String,
-    val state: String,
-    val county: String,
-    val city: String,
-    val rank: Rank
+    val name: String?,
+    val country: String?,
+    @Json(name = "country_code") val countryCode: String?,
+    val state: String?,
+    val county: String?,
+    val city: String?,
+    val rank: Rank?
 )
 
 @JsonClass(generateAdapter = true)
 data class Rank(
-    val importance: Double,
-    val popularity: Double,
-    val confidence: Int,
-    @Json(name = "confidence_city_level") val confidenceCityLevel: Int,
-    val match_type: String
+    val importance: Double?,
+    val popularity: Double?,
+    val confidence: Double?,
+    @Json(name = "confidence_city_level") val confidenceCityLevel: Double?,
+    val match_type: String?
 )
 
 enum class MatchType(val value: String) {
@@ -41,7 +41,7 @@ enum class MatchType(val value: String) {
 
 fun GeoApifySearchResponse.mapToDomain(): LocationResult {
     //Check for a full location match to ensure that both the city and country were a match
-    val fullMatch = results.firstOrNull { it.rank.match_type == MatchType.FULL_MATCH.value }
+    val fullMatch = results.firstOrNull { it.rank?.match_type == MatchType.FULL_MATCH.value }
 
     return LocationResult(
         foundMatch = fullMatch != null,
