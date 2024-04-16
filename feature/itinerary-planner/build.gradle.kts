@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
@@ -11,18 +13,7 @@ android {
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        //load the "apiKey" from local.properties file
-        val keystoreFile = project.rootProject.file("local.properties")
-        val properties = Properties()
-        properties.load(keystoreFile.inputStream())
-        val apiKey = properties.getProperty("apiKey") ?: ""
-
-        buildConfigField(
-            type = "String",
-            name = "apiKey",
-            value = apiKey
-        )
+        minSdk = 28
     }
 
     buildFeatures {
@@ -30,7 +21,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 
     buildTypes {
@@ -52,7 +43,8 @@ android {
 }
 
 /*
-* TODO: Set up shared project dependencies across feature modules if project expands
+* TODO: Set up shared project dependencies in a gradle plugin
+*  across feature modules if project expands
 */
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -71,4 +63,11 @@ dependencies {
     implementation(libs.generativeai)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
+    implementation(libs.retrofit)
+    implementation(libs.moshi)
+    implementation(libs.moshi.converter)
+    ksp(libs.moshi.kotlin.codegen)
 }

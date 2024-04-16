@@ -1,7 +1,11 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
@@ -19,6 +23,25 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        //load the api keys from local.properties file
+        val keystoreFile = project.rootProject.file("local.properties")
+        val properties = Properties()
+        properties.load(keystoreFile.inputStream())
+        val geminiAPIKey = properties.getProperty("geminiAPIKey") ?: ""
+        val geoApifyAPIKey = properties.getProperty("geoApifyAPIKey") ?: ""
+
+        buildConfigField(
+            type = "String",
+            name = "geminiAPIKey",
+            value = geminiAPIKey
+        )
+
+        buildConfigField(
+            type = "String",
+            name = "geoApifyAPIKey",
+            value = geoApifyAPIKey
+        )
     }
 
     buildTypes {
@@ -42,7 +65,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -72,4 +95,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
+    implementation(libs.retrofit)
+    implementation(libs.moshi)
+    implementation(libs.moshi.converter)
+    implementation(libs.multidex)
 }
