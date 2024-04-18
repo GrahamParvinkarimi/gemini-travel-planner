@@ -26,26 +26,21 @@ class ItineraryPlannerViewModel @Inject constructor(
         _uiState.asStateFlow()
 
     fun sendPrompt(
-        city: String,
-        country: String,
+        location: String,
         numberOfDays: String
     ) {
         _uiState.value = UiState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
             val locationResult = validateLocationUseCase(
-                ItineraryPlannerScreenUtils.getCombinedCityAndCountryString(
-                    city = city,
-                    country = country
-                )
+                location
             )
 
             if (locationResult is NetworkResult.Success) {
                 if (locationResult.data.foundMatch) {
                     when (val itineraryResult = generateItineraryUseCase(
                         prompt = ItineraryPlannerScreenUtils.getGenerativePrompt(
-                            city = city,
-                            country = country,
+                            location = location,
                             numberOfDays = numberOfDays
                         )
                     )) {

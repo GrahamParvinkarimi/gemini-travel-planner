@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gp.itinerary_planner.R
@@ -30,39 +31,49 @@ import com.gp.itinerary_planner.viewstate.UiState
 import com.gp.itinerary_planner.vm.ItineraryPlannerViewModel
 
 @Composable
-fun ItineraryPlannerScreen(
+fun ItineraryPlannerRoute(
     itineraryPlannerViewModel: ItineraryPlannerViewModel = viewModel()
+) {
+    val uiState by itineraryPlannerViewModel.uiState.collectAsState()
+
+    ItineraryPlannerScreen(
+        uiState = uiState,
+        sendPrompt = itineraryPlannerViewModel::sendPrompt
+    )
+}
+
+@Composable
+fun ItineraryPlannerScreen(
+    uiState: UiState,
+    sendPrompt: (String, String) -> Unit
 ) {
     val placeholderResult = stringResource(R.string.results_placeholder)
     var result by rememberSaveable { mutableStateOf(placeholderResult) }
-    val uiState by itineraryPlannerViewModel.uiState.collectAsState()
 
-    var country by remember { mutableStateOf("") }
-    var city by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("") }
     var days by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(
-            text = stringResource(R.string.travel_planning_title),
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(16.dp)
-        )
+        Column(
+            modifier = Modifier.padding(all = 16.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.travel_planning_title),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Text(
+                text = stringResource(R.string.gemini_title),
+                style = MaterialTheme.typography.headlineLarge
+            )
+        }
 
-        //Row for country
+        //Row for location
         TextFieldRow(
-            label = stringResource(R.string.label_country),
-            value = country,
-            onValueChange = { country = it }
-        )
-
-        //Row for city
-        TextFieldRow(
-            label = stringResource(R.string.label_city),
-            value = city,
-            onValueChange = { city = it }
-
+            label = stringResource(R.string.label_destination),
+            value = location,
+            onValueChange = { location = it }
         )
 
         //Row for number of days
@@ -79,15 +90,13 @@ fun ItineraryPlannerScreen(
         ) {
             Button(
                 onClick = {
-                    itineraryPlannerViewModel.sendPrompt(
-                        city = city,
-                        country = country,
-                        numberOfDays = days
+                    sendPrompt(
+                        location,
+                        days
                     )
                 },
                 enabled = ItineraryPlannerScreenUtils.isPlannerButtonEnabled(
-                    city = city,
-                    country = country,
+                    location = location,
                     days = days
                 ),
                 modifier = Modifier
@@ -103,10 +112,10 @@ fun ItineraryPlannerScreen(
             var textColor = MaterialTheme.colorScheme.onSurface
             if (uiState is UiState.Error) {
                 textColor = MaterialTheme.colorScheme.error
-                result = (uiState as UiState.Error).errorMessage
+                result = uiState.errorMessage
             } else if (uiState is UiState.Success) {
                 textColor = MaterialTheme.colorScheme.onSurface
-                result = (uiState as UiState.Success).outputText
+                result = uiState.outputText
             }
             val scrollState = rememberScrollState()
             Text(
@@ -141,4 +150,15 @@ fun TextFieldRow(
                 .align(Alignment.CenterVertically)
         )
     }
+}
+
+@Preview
+@Composable
+fun ItineraryPlannerScreenPreview() {
+    ItineraryPlannerScreen(
+        UiState.Success(
+            outputText = "Success"
+        ),
+        sendPrompt = { _, _ -> }
+    )
 }
