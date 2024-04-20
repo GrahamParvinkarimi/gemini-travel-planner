@@ -38,8 +38,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -70,26 +68,14 @@ fun ItineraryPlannerRoute(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItineraryPlannerScreen(
     uiState: UiState, sendPrompt: (String, String) -> Unit
 ) {
-    var result by rememberSaveable { mutableStateOf("") }
-
-    if (uiState is UiState.Success) {
-        result = uiState.outputText
-    } else if (uiState is UiState.Loading) {
-        result = ""
-    }
-
     val location = remember { mutableStateOf("") }
     val days = remember { mutableStateOf("") }
 
-    val sheetState = rememberModalBottomSheetState()
     val showBottomSheet = remember { mutableStateOf(true) }
-    val scope = rememberCoroutineScope()
-    val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     Column(
         modifier = Modifier
@@ -109,57 +95,75 @@ fun ItineraryPlannerScreen(
             sendPrompt = sendPrompt
         )
 
-        if (result.isNotEmpty() && showBottomSheet.value) {
-            ModalBottomSheet(
-                onDismissRequest = {
-                    showBottomSheet.value = false
-                },
-                sheetState = sheetState
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier.align(Alignment.End)
-                    ) {
-                        IconButton(onClick = {
-                            clipboardManager.setText(AnnotatedString((result)))
-                        }) {
-                            Icon(
-                                imageVector = Icons.Filled.ContentCopy,
-                                contentDescription = null,
-                            )
-                        }
-                        IconButton(onClick = {
-                            scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                if (!sheetState.isVisible) {
-                                    showBottomSheet.value = false
-                                }
-                            }
-                        }) {
-                            Icon(
-                                imageVector = Icons.Filled.Close,
-                                contentDescription = null,
-                            )
-                        }
-                    }
-                    Text(
-                        text = "Itinerary for [dates]",
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = result, color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            }
+        if (uiState is UiState.Success) {
+            ItineraryBottomSheet(
+                outputText = uiState.outputText,
+                showBottomSheet = showBottomSheet
+            )
         }
     }
 
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ItineraryBottomSheet(
+    outputText: String,
+    showBottomSheet: MutableState<Boolean>
+) {
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
+
+    if (outputText.isNotEmpty() && showBottomSheet.value) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                showBottomSheet.value = false
+            },
+            sheetState = sheetState
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.align(Alignment.End)
+                ) {
+                    IconButton(onClick = {
+                        clipboardManager.setText(AnnotatedString((outputText)))
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.ContentCopy,
+                            contentDescription = null,
+                        )
+                    }
+                    IconButton(onClick = {
+                        scope.launch { sheetState.hide() }.invokeOnCompletion {
+                            if (!sheetState.isVisible) {
+                                showBottomSheet.value = false
+                            }
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = null,
+                        )
+                    }
+                }
+                Text(
+                    text = "Itinerary for [dates]",
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = outputText, color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+    }
 }
 
 @Composable
