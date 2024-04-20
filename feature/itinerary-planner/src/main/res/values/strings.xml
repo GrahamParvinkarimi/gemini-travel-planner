@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">itinerary-planner</string>
-    <string name="action_go">Go</string>
-    <string name="gemini_title">Gemini</string>
-    <string name="travel_planning_title">Travel Planning</string>
+    <string name="create_itinerary_button_text">Create Itinerary</string>
+    <string name="plan_your_trip_title">Plan Your Trip</string>
     <string name="label_destination">Destination</string>
     <string name="label_days">Days</string>
     <string name="prompt_placeholder">Provide the location that you will be traveling to</string>
