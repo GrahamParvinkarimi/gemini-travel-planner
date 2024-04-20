@@ -22,9 +22,11 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
@@ -47,6 +49,7 @@ import com.gp.itinerary_planner.R
 import com.gp.itinerary_planner.util.ItineraryPlannerScreenUtils
 import com.gp.itinerary_planner.viewstate.UiState
 import com.gp.itinerary_planner.vm.ItineraryPlannerViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun ItineraryPlannerRoute(
@@ -59,6 +62,7 @@ fun ItineraryPlannerRoute(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItineraryPlannerScreen(
     uiState: UiState, sendPrompt: (String, String) -> Unit
@@ -67,6 +71,9 @@ fun ItineraryPlannerScreen(
 
     val location = remember { mutableStateOf("") }
     val days = remember { mutableStateOf("") }
+
+    val sheetState = rememberModalBottomSheetState()
+    val showBottomSheet = remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier
@@ -80,7 +87,12 @@ fun ItineraryPlannerScreen(
             contentDescription = null
         )
 
-        PlanYourTripCard(location = location, days = days, sendPrompt = sendPrompt)
+        PlanYourTripCard(
+            location = location,
+            days = days,
+            showBottomSheet = showBottomSheet,
+            sendPrompt = sendPrompt
+        )
 
         if (uiState is UiState.Loading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -93,19 +105,18 @@ fun ItineraryPlannerScreen(
                 textColor = MaterialTheme.colorScheme.onSurface
                 result = uiState.outputText
             }
-            if (result.isNotEmpty())
-                ElevatedCard(
-                    elevation = CardDefaults.cardElevation(
-                        defaultElevation = 6.dp
-                    ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFFFFBFE)
-                    ),
+            if (result.isNotEmpty() && showBottomSheet.value)
+                ModalBottomSheet(
+                    onDismissRequest = {
+                        showBottomSheet.value = false
+                    },
+                    sheetState = sheetState
                 ) {
                     Column(
                         modifier = Modifier
                             .padding(16.dp)
                             .align(Alignment.CenterHorizontally)
+                            .verticalScroll(rememberScrollState())
                             .fillMaxWidth()
                     ) {
                         Text(
@@ -127,6 +138,7 @@ fun ItineraryPlannerScreen(
 fun PlanYourTripCard(
     location: MutableState<String>,
     days: MutableState<String>,
+    showBottomSheet: MutableState<Boolean>,
     sendPrompt: (String, String) -> Unit
 ) {
     Column(
@@ -174,6 +186,7 @@ fun PlanYourTripCard(
                 Row {
                     Button(
                         onClick = {
+                            showBottomSheet.value = true
                             sendPrompt(
                                 location.value, days.value
                             )
