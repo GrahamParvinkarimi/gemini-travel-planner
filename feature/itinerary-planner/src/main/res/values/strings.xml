@@ -15,4 +15,16 @@
     <string name="date_picker_title_text">Please choose the start and end dates for your trip</string>
     <string name="date_picker_start_date_text">Start Date</string>
     <string name="date_picker_end_date_text">End Date</string>
+
+    <string name="madrid_card_text">Madrid</string>
+    <string name="madrid_prefilled_text">Madrid, Spain</string>
+    <string name="london_card_text">London</string>
+    <string name="london_prefilled_text">London, UK</string>
+    <string name="tokyo_card_text">Tokyo</string>
+    <string name="tokyo_prefilled_text">Tokyo, Japan</string>
+    <string name="paris_card_text">Paris</string>
+    <string name="paris_prefilled_text">Paris, France</string>
+    <string name="image_content_description">%1$s Image</string>
+    <string name="arrow_content_description">Press to autofill destination with %1$s</string>
+    <string name="travel_header_image_content_description">Travel header image</string>
 </resources>

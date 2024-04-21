@@ -12,11 +12,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gp.itinerary_planner.R
 import com.gp.itinerary_planner.ui.components.ItineraryBottomSheet
 import com.gp.itinerary_planner.ui.components.PlanYourTripCard
+import com.gp.itinerary_planner.ui.components.QuickSelectCardSection
 import com.gp.itinerary_planner.viewstate.UiState
 import com.gp.itinerary_planner.vm.ItineraryPlannerViewModel
 
@@ -47,7 +49,7 @@ fun ItineraryPlannerScreen(
     ) {
         Image(
             painter = painterResource(id = R.drawable.plane_travel_header_artwork),
-            contentDescription = null
+            contentDescription = stringResource(id = R.string.travel_header_image_content_description)
         )
 
         PlanYourTripCard(
@@ -56,6 +58,12 @@ fun ItineraryPlannerScreen(
             dateRangeString = dateRangeString,
             showBottomSheet = showBottomSheet,
             sendPrompt = sendPrompt
+        )
+
+        QuickSelectCardSection(
+            onQuickSelectCardClicked = { selectedCardLocationString ->
+                locationString.value = selectedCardLocationString
+            }
         )
 
         if (uiState is UiState.Success) {

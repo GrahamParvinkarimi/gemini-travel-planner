@@ -51,7 +51,7 @@ fun PlanYourTripCard(
         modifier = Modifier
             .fillMaxSize()
             .padding(
-                top = Dimens.tripCardHeight,
+                top = Dimens.standardPadding,
                 start = Dimens.standardPadding,
                 end = Dimens.standardPadding
             ),

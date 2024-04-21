@@ -10,8 +10,10 @@ object Dimens {
     val standardPadding = 16.dp
 
     //Component Sizes
+    val quickSelectCardTopPadding = 40.dp
     val textFieldHeight = 42.dp
-    val tripCardHeight = 54.dp
+    val cardImageHeight = 100.dp
+    val cardArrowIconSize = 18.dp
 
     //Round Corner Sizes
     val textFieldRoundedCornerSize = 24.dp
