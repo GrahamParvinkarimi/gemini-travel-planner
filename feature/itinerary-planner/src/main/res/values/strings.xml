@@ -3,7 +3,7 @@
     <string name="create_itinerary_button_text">Create Itinerary</string>
     <string name="plan_your_trip_title">Plan Your Trip</string>
     <string name="label_destination">Destination</string>
-    <string name="label_days">Days</string>
+    <string name="label_date">Start Date - End Date</string>
     <string name="prompt_placeholder">Provide the location that you will be traveling to</string>
     <string name="results_placeholder">(Results will appear here)</string>
 </resources>
