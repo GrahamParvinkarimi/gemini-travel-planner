@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.gp.itinerary_planner.ui
 
 import androidx.compose.foundation.Image
@@ -30,6 +32,7 @@ import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerFormatter
 import androidx.compose.material3.DateRangePicker
+import androidx.compose.material3.DateRangePickerState
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -49,7 +52,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -65,6 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gp.itinerary_planner.R
+import com.gp.itinerary_planner.ui.constants.Dimens
 import com.gp.itinerary_planner.util.ItineraryPlannerScreenUtils
 import com.gp.itinerary_planner.viewstate.UiState
 import com.gp.itinerary_planner.vm.ItineraryPlannerViewModel
@@ -86,7 +89,7 @@ fun ItineraryPlannerScreen(
     uiState: UiState, sendPrompt: (String, String) -> Unit
 ) {
     val location = remember { mutableStateOf("") }
-    val days = remember { mutableStateOf("") }
+    val dateRangeString = remember { mutableStateOf("") }
 
     val showBottomSheet = remember { mutableStateOf(true) }
 
@@ -103,7 +106,7 @@ fun ItineraryPlannerScreen(
         PlanYourTripCard(
             uiState = uiState,
             location = location,
-            days = days,
+            dateRangeString = dateRangeString,
             showBottomSheet = showBottomSheet,
             sendPrompt = sendPrompt
         )
@@ -111,18 +114,19 @@ fun ItineraryPlannerScreen(
         if (uiState is UiState.Success) {
             ItineraryBottomSheet(
                 outputText = uiState.outputText,
-                showBottomSheet = showBottomSheet
+                showBottomSheet = showBottomSheet,
+                dateRangeString = dateRangeString.value
             )
         }
     }
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItineraryBottomSheet(
     outputText: String,
-    showBottomSheet: MutableState<Boolean>
+    showBottomSheet: MutableState<Boolean>,
+    dateRangeString: String
 ) {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
@@ -137,7 +141,11 @@ fun ItineraryBottomSheet(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                    .padding(
+                        start = Dimens.standardPadding,
+                        end = Dimens.standardPadding,
+                        bottom = Dimens.standardPadding
+                    )
                     .align(Alignment.CenterHorizontally)
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth()
@@ -167,10 +175,10 @@ fun ItineraryBottomSheet(
                     }
                 }
                 Text(
-                    text = "Itinerary for [dates]",
+                    text = stringResource(id = R.string.itinerary_title, dateRangeString),
                     color = MaterialTheme.colorScheme.primary
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(Dimens.smallPadding))
                 Text(
                     text = outputText, color = MaterialTheme.colorScheme.onSurface
                 )
@@ -179,28 +187,30 @@ fun ItineraryBottomSheet(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlanYourTripCard(
     uiState: UiState,
     location: MutableState<String>,
-    days: MutableState<String>,
+    dateRangeString: MutableState<String>,
     showBottomSheet: MutableState<Boolean>,
     sendPrompt: (String, String) -> Unit
 ) {
-    var showDatePicker by remember { mutableStateOf(false) }
+    val showDatePicker = remember { mutableStateOf(false) }
     val dateRangePickerState = rememberDateRangePickerState()
-    val dateFormatter = remember { DatePickerDefaults.dateFormatter() }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 54.dp, start = 16.dp, end = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+            .padding(
+                top = Dimens.tripCardHeight,
+                start = Dimens.standardPadding,
+                end = Dimens.standardPadding
+            ),
+        verticalArrangement = Arrangement.spacedBy(Dimens.standardPadding),
     ) {
         ElevatedCard(
             elevation = CardDefaults.cardElevation(
-                defaultElevation = 6.dp
+                defaultElevation = Dimens.elevatedCardElevation
             ),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFFFFBFE)
@@ -208,7 +218,7 @@ fun PlanYourTripCard(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(Dimens.standardPadding)
                     .fillMaxWidth(),
             ) {
                 //Plan Your Trip title
@@ -216,98 +226,44 @@ fun PlanYourTripCard(
                     text = stringResource(R.string.plan_your_trip_title),
                     style = MaterialTheme.typography.titleMedium
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Dimens.standardPadding))
 
                 //Row for location
                 TextFieldRow(label = stringResource(R.string.label_destination),
                     value = location.value,
                     onValueChange = { location.value = it },
                     leadingIcon = {
-                        // Show the leading icon if the value is empty
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = null
+                            contentDescription = stringResource(id = R.string.search_icon_content_description)
                         )
                     })
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Dimens.standardPadding))
 
                 //Row for to select start & end date of the trip
                 DateTextFieldRow(
                     label = stringResource(R.string.label_date),
-                    value = dateFormatter.formatDate(
-                        dateMillis = dateRangePickerState.selectedStartDateMillis,
-                        locale = CalendarLocale.getDefault()
-                    ) + " - " + dateFormatter.formatDate(
-                        dateMillis = dateRangePickerState.selectedEndDateMillis,
-                        locale = CalendarLocale.getDefault()
-                    ),
+                    value = dateRangeString.value,
                     onValueChange = { },
                     trailingIcon = {
-                        IconButton(onClick = { showDatePicker = true }) {
+                        IconButton(onClick = { showDatePicker.value = true }) {
                             Icon(
                                 imageVector = Icons.Filled.CalendarMonth,
-                                contentDescription = "Open date picker"
+                                contentDescription = stringResource(id = R.string.date_button_content_description)
                             )
                         }
                     },
                 )
 
-                if (showDatePicker) {
-                    DatePickerDialog(
-                        onDismissRequest = { showDatePicker = false },
-                        confirmButton = {
-                            TextButton(
-                                onClick = { showDatePicker = false },
-                                enabled = dateRangePickerState.selectedStartDateMillis != null && dateRangePickerState.selectedEndDateMillis != null
-                            ) {
-                                Text("OK")
-                            }
-                        },
-                        dismissButton = {
-                            TextButton(
-                                onClick = { showDatePicker = false }
-                            ) {
-                                Text("CANCEL")
-                            }
-                        }
-                    ) {
-                        Spacer(modifier = Modifier.padding(10.dp))
-
-                        DateRangePicker(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(1f),
-                            state = dateRangePickerState,
-                            title = {
-                                Text(
-                                    text = "Please choose the start and end dates for your trip",
-                                    modifier = Modifier
-                                        .padding(16.dp)
-                                )
-                            },
-                            headline = {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(start = 16.dp, bottom = 8.dp)
-                                ) {
-                                    HeadlineDateSection(
-                                        dateValue = dateRangePickerState.selectedStartDateMillis,
-                                        placeholderText = "Start Date",
-                                        dateFormatter = dateFormatter
-                                    )
-                                    HeadlineDateSection(
-                                        dateValue = dateRangePickerState.selectedEndDateMillis,
-                                        placeholderText = "End Date",
-                                        dateFormatter = dateFormatter
-                                    )
-                                }
-                            },
-                        )
-                    }
+                if (showDatePicker.value) {
+                    DateRangePickerDialog(
+                        showDatePicker = showDatePicker,
+                        dateRangeString = dateRangeString,
+                        dateRangePickerState = dateRangePickerState
+                    )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Dimens.standardPadding))
 
                 Row(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -320,10 +276,10 @@ fun PlanYourTripCard(
                             onClick = {
                                 showBottomSheet.value = true
                                 sendPrompt(
-                                    location.value, days.value
+                                    location.value, dateRangeString.value
                                 )
                             }, enabled = ItineraryPlannerScreenUtils.isPlannerButtonEnabled(
-                                location = location.value, days = days.value
+                                location = location.value, days = dateRangeString.value
                             ),
                             modifier = Modifier.fillMaxWidth()
                         ) {
@@ -336,7 +292,79 @@ fun PlanYourTripCard(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DateRangePickerDialog(
+    showDatePicker: MutableState<Boolean>,
+    dateRangeString: MutableState<String>,
+    dateRangePickerState: DateRangePickerState
+) {
+    val dateFormatter = remember { DatePickerDefaults.dateFormatter() }
+
+    DatePickerDialog(
+        onDismissRequest = { showDatePicker.value = false },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    showDatePicker.value = false
+                    dateRangeString.value = ItineraryPlannerScreenUtils.getFormattedDateString(
+                        dateRangePickerState = dateRangePickerState,
+                        datePickerFormatter = dateFormatter
+                    )
+                },
+                enabled = ItineraryPlannerScreenUtils.startAndEndDateSelected(
+                    dateRangePickerState
+                )
+            ) {
+                Text(stringResource(id = R.string.ok_modal_text))
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = { showDatePicker.value = false }
+            ) {
+                Text(stringResource(id = R.string.cancel_modal_text))
+            }
+        }
+    ) {
+        Spacer(modifier = Modifier.padding(10.dp))
+
+        DateRangePicker(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            state = dateRangePickerState,
+            title = {
+                Text(
+                    text = stringResource(id = R.string.date_picker_title_text),
+                    modifier = Modifier
+                        .padding(Dimens.standardPadding)
+                )
+            },
+            headline = {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            start = Dimens.standardPadding,
+                            bottom = Dimens.smallPadding
+                        )
+                ) {
+                    HeadlineDateSection(
+                        dateValue = dateRangePickerState.selectedStartDateMillis,
+                        placeholderText = stringResource(id = R.string.date_picker_start_date_text),
+                        dateFormatter = dateFormatter
+                    )
+                    HeadlineDateSection(
+                        dateValue = dateRangePickerState.selectedEndDateMillis,
+                        placeholderText = stringResource(id = R.string.date_picker_end_date_text),
+                        dateFormatter = dateFormatter
+                    )
+                }
+            },
+        )
+    }
+}
+
 @Composable
 fun RowScope.HeadlineDateSection(
     dateValue: Long?,
@@ -358,7 +386,6 @@ fun RowScope.HeadlineDateSection(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextFieldRow(
     label: String,
@@ -371,13 +398,13 @@ fun TextFieldRow(
     Row(
         modifier = Modifier
             //Indent text field below header
-            .padding(start = 1.dp, end = 1.dp)
+            .padding(horizontal = Dimens.indentPadding)
     ) {
         BasicTextField(
             value = value,
             onValueChange = { onValueChange(it) },
             modifier = Modifier
-                .height(42.dp)
+                .height(Dimens.textFieldHeight)
                 .fillMaxWidth(),
             singleLine = true,
             interactionSource = interactionSource,
@@ -402,12 +429,12 @@ fun TextFieldRow(
                 visualTransformation = VisualTransformation.None,
                 container = { OutlinedTextFieldContainerBox(interactionSource) },
                 contentPadding = TextFieldDefaults.contentPaddingWithLabel(
-                    top = 0.dp,
-                    bottom = 0.dp,
+                    top = Dimens.zeroPadding,
+                    bottom = Dimens.zeroPadding,
                     start = if (!interactionSource.collectIsFocusedAsState().value && value.isBlank()) {
-                        8.dp
+                        Dimens.smallPadding
                     } else {
-                        16.dp
+                        Dimens.standardPadding
                     }
                 )
             )
@@ -428,13 +455,13 @@ fun DateTextFieldRow(
     Row(
         modifier = Modifier
             //Indent text field below header
-            .padding(start = 1.dp, end = 1.dp)
+            .padding(horizontal = Dimens.indentPadding)
     ) {
         BasicTextField(
             value = value,
             onValueChange = { onValueChange(it) },
             modifier = Modifier
-                .height(42.dp)
+                .height(Dimens.textFieldHeight)
                 .fillMaxWidth(),
             singleLine = true,
             readOnly = true,
@@ -456,9 +483,9 @@ fun DateTextFieldRow(
                 visualTransformation = VisualTransformation.None,
                 container = { OutlinedTextFieldContainerBox(interactionSource) },
                 contentPadding = TextFieldDefaults.contentPaddingWithLabel(
-                    top = 0.dp,
-                    bottom = 0.dp,
-                    start = 16.dp
+                    top = Dimens.zeroPadding,
+                    bottom = Dimens.zeroPadding,
+                    start = Dimens.standardPadding
                 )
             )
         }
@@ -476,7 +503,7 @@ fun OutlinedTextFieldContainerBox(interactionSource: MutableInteractionSource) {
             unfocusedBorderColor = Color.LightGray,
             focusedBorderColor = Color.DarkGray
         ),
-        shape = RoundedCornerShape(24.dp)
+        shape = RoundedCornerShape(Dimens.textFieldRoundedCornerSize)
     )
 }
 

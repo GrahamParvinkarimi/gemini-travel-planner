@@ -1,9 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">itinerary-planner</string>
+
     <string name="create_itinerary_button_text">Create Itinerary</string>
     <string name="plan_your_trip_title">Plan Your Trip</string>
     <string name="label_destination">Destination</string>
     <string name="label_date">Start Date - End Date</string>
     <string name="prompt_placeholder">Provide the location that you will be traveling to</string>
-    <string name="results_placeholder">(Results will appear here)</string>
+    <string name="itinerary_title">Itinerary for %1$s</string>
+    <string name="date_button_content_description">"Open date picker"</string>
+    <string name="search_icon_content_description">Search icon</string>
+    <string name="ok_modal_text">OK</string>
+    <string name="cancel_modal_text" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="date_picker_title_text">Please choose the start and end dates for your trip</string>
+    <string name="date_picker_start_date_text">Start Date</string>
+    <string name="date_picker_end_date_text">End Date</string>
 </resources>

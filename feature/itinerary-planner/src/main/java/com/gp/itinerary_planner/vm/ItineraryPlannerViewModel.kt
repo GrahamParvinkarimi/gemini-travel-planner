@@ -27,7 +27,7 @@ class ItineraryPlannerViewModel @Inject constructor(
 
     fun sendPrompt(
         location: String,
-        numberOfDays: String
+        dateRange: String
     ) {
         _uiState.value = UiState.Loading
 
@@ -41,7 +41,7 @@ class ItineraryPlannerViewModel @Inject constructor(
                     when (val itineraryResult = generateItineraryUseCase(
                         prompt = ItineraryPlannerScreenUtils.getGenerativePrompt(
                             location = location,
-                            numberOfDays = numberOfDays
+                            dateRange = dateRange
                         )
                     )) {
                         is NetworkResult.Success -> {
