@@ -8,12 +8,14 @@ object Dimens {
     val indentPadding = 1.dp
     val smallPadding = 8.dp
     val standardPadding = 16.dp
+    val largePadding = 24.dp
 
     //Component Sizes
     val quickSelectCardTopPadding = 40.dp
     val textFieldHeight = 42.dp
     val cardImageHeight = 100.dp
     val cardArrowIconSize = 18.dp
+    val itineraryHeaderPadding = 70.dp
 
     //Round Corner Sizes
     val textFieldRoundedCornerSize = 24.dp

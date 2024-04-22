@@ -2,6 +2,7 @@
 
 package com.gp.itinerary_planner.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import com.gp.itinerary_planner.R
 import com.gp.itinerary_planner.ui.constants.Dimens
+import com.gp.itinerary_planner.util.ItineraryPlannerScreenUtils
 import kotlinx.coroutines.launch
 
 @Composable
@@ -52,17 +54,13 @@ fun ItineraryBottomSheet(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(
-                        start = Dimens.standardPadding,
-                        end = Dimens.standardPadding,
-                        bottom = Dimens.standardPadding
-                    )
                     .align(Alignment.CenterHorizontally)
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth()
             ) {
                 Row(
-                    modifier = Modifier.align(Alignment.End)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(onClick = {
                         clipboardManager.setText(AnnotatedString((outputText)))
@@ -72,27 +70,57 @@ fun ItineraryBottomSheet(
                             contentDescription = null,
                         )
                     }
-                    IconButton(onClick = {
-                        scope.launch { sheetState.hide() }.invokeOnCompletion {
-                            if (!sheetState.isVisible) {
-                                showBottomSheet.value = false
+                    IconButton(
+                        onClick = {
+                            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                if (!sheetState.isVisible) {
+                                    showBottomSheet.value = false
+                                }
                             }
-                        }
-                    }) {
+                        },
+                    ) {
                         Icon(
                             imageVector = Icons.Filled.Close,
                             contentDescription = null,
                         )
                     }
                 }
-                Text(
-                    text = stringResource(id = R.string.itinerary_title, dateRangeString),
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Spacer(modifier = Modifier.height(Dimens.smallPadding))
-                Text(
-                    text = outputText, color = MaterialTheme.colorScheme.onSurface
-                )
+
+                //Padding is separate from the Icons because the Icons add additional padding internally by default
+                Column(
+                    modifier = Modifier
+                        .padding(
+                            start = Dimens.standardPadding,
+                            end = Dimens.standardPadding,
+                            top = Dimens.largePadding,
+                            bottom = Dimens.itineraryHeaderPadding
+                        )
+                        .align(Alignment.CenterHorizontally)
+                        .fillMaxWidth()
+                ) {
+                    //Itinerary Title
+                    Text(
+                        text = stringResource(id = R.string.itinerary_title, dateRangeString),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(modifier = Modifier.height(Dimens.smallPadding))
+
+                    //Date Range header
+                    Text(
+                        text = dateRangeString,
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    Spacer(modifier = Modifier.height(Dimens.largePadding))
+
+                    //Itinerary content
+                    Text(
+                        text = ItineraryPlannerScreenUtils.buildItineraryAnnotatedString(outputText),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
         }
     }

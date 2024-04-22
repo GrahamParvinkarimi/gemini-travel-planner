@@ -7,7 +7,7 @@
     <string name="placeholder_date_range">Start Date - End Date</string>
     <string name="label_date_range">Trip Dates</string>
     <string name="prompt_placeholder">Provide the location that you will be traveling to</string>
-    <string name="itinerary_title">Itinerary for %1$s</string>
+    <string name="itinerary_title">Itinerary from Gemini AI</string>
     <string name="date_button_content_description">"Open date picker"</string>
     <string name="search_icon_content_description">Search icon</string>
     <string name="ok_modal_text">OK</string>

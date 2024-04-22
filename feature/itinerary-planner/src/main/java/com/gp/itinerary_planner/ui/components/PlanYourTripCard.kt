@@ -99,7 +99,8 @@ fun PlanYourTripCard(
                         IconButton(onClick = { showDatePicker.value = true }) {
                             Icon(
                                 imageVector = Icons.Filled.CalendarMonth,
-                                contentDescription = stringResource(id = R.string.date_button_content_description)
+                                contentDescription = stringResource(id = R.string.date_button_content_description),
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     },
