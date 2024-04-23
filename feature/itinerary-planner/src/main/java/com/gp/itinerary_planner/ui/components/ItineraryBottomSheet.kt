@@ -62,6 +62,7 @@ fun ItineraryBottomSheet(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    //Copy button
                     IconButton(onClick = {
                         clipboardManager.setText(AnnotatedString((outputText)))
                     }) {
@@ -70,6 +71,8 @@ fun ItineraryBottomSheet(
                             contentDescription = null,
                         )
                     }
+
+                    //Close button
                     IconButton(
                         onClick = {
                             scope.launch { sheetState.hide() }.invokeOnCompletion {

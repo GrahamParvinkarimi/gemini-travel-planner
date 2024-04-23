@@ -12,7 +12,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 
 object ItineraryPlannerScreenUtils {
-    private const val geminiItineraryResponseRegex = """\*\*(Day|Hotel|Additional|Accommodation|Transportation|Tips).+\*\*"""
+    private const val GEMINI_ITINERARY_RESPONSE_REGEX = """\*\*(Day|Hotel|Additional|Accommodation|Transportation|Tips|Dining).+\*\*"""
 
     @JvmStatic
     fun isPlannerButtonEnabled(location: String, days: String): Boolean {
@@ -42,7 +42,7 @@ object ItineraryPlannerScreenUtils {
 
     @JvmStatic
     fun buildItineraryAnnotatedString(outputText: String): AnnotatedString {
-        val headers = Regex(geminiItineraryResponseRegex).findAll(outputText)
+        val headers = Regex(GEMINI_ITINERARY_RESPONSE_REGEX).findAll(outputText)
 
         //Find all of the headers (regex checks for the "**" pattern that Gemini uses & some hardcoded key words) and apply a bold style to each match found
         return buildAnnotatedString {

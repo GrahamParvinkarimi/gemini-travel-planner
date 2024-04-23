@@ -104,4 +104,7 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.converter)
     implementation(libs.multidex)
+
+    //Jetpack Navigation
+    implementation(libs.androidx.navigation.compose)
 }

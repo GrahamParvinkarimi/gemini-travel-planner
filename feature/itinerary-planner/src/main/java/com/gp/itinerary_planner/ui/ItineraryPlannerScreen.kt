@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.gp.itinerary_planner.R
 import com.gp.itinerary_planner.ui.components.ItineraryBottomSheet
 import com.gp.itinerary_planner.ui.components.PlanYourTripCard
@@ -24,7 +24,7 @@ import com.gp.itinerary_planner.vm.ItineraryPlannerViewModel
 
 @Composable
 fun ItineraryPlannerRoute(
-    itineraryPlannerViewModel: ItineraryPlannerViewModel = viewModel()
+    itineraryPlannerViewModel: ItineraryPlannerViewModel = hiltViewModel()
 ) {
     val uiState by itineraryPlannerViewModel.uiState.collectAsState()
 

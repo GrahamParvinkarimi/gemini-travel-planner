@@ -75,4 +75,8 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.converter)
     ksp(libs.moshi.kotlin.codegen)
+
+    //Jetpack Navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
