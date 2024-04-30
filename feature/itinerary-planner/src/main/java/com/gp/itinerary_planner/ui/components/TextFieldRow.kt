@@ -69,9 +69,9 @@ fun TextFieldRow(
                     top = Dimens.zeroPadding,
                     bottom = Dimens.zeroPadding,
                     start = if (!interactionSource.collectIsFocusedAsState().value && value.isBlank()) {
-                        Dimens.smallPadding
+                        Dimens.padding_8
                     } else {
-                        Dimens.standardPadding
+                        Dimens.padding_16
                     }
                 )
             )

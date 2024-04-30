@@ -36,14 +36,14 @@ fun QuickSelectCardSection(
         modifier = Modifier
             .padding(
                 top = Dimens.quickSelectCardTopPadding,
-                start = Dimens.standardPadding,
-                end = Dimens.standardPadding
+                start = Dimens.padding_16,
+                end = Dimens.padding_16
             ),
-        verticalArrangement = Arrangement.spacedBy(Dimens.standardPadding),
+        verticalArrangement = Arrangement.spacedBy(Dimens.padding_16),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Dimens.standardPadding),
+            horizontalArrangement = Arrangement.spacedBy(Dimens.padding_16),
             modifier = Modifier.fillMaxSize()
         ) {
             DestinationQuickSelectCard(
@@ -64,7 +64,7 @@ fun QuickSelectCardSection(
             )
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Dimens.standardPadding),
+            horizontalArrangement = Arrangement.spacedBy(Dimens.padding_16),
             modifier = Modifier.fillMaxSize()
         ) {
             DestinationQuickSelectCard(
@@ -115,11 +115,11 @@ fun RowScope.DestinationQuickSelectCard(
                         .fillMaxWidth()
                         .height(Dimens.cardImageHeight)
                 )
-                Row(modifier = Modifier.padding(Dimens.standardPadding)) {
+                Row(modifier = Modifier.padding(Dimens.padding_16)) {
                     Text(
                         text = cardData.title,
                         style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier.padding(end = Dimens.smallPadding)
+                        modifier = Modifier.padding(end = Dimens.padding_8)
                     )
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowForward,

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.view.WindowCompat
 import com.gp.geminitravelplanner.designsystem.components.TravelPlannerBackground
 import com.gp.geminitravelplanner.ui.TravelPlannerApp
 import com.gp.geminitravelplanner.ui.theme.GeminiTravelPlannerTheme
@@ -22,6 +23,12 @@ class MainActivity : ComponentActivity() {
                 android.graphics.Color.TRANSPARENT
             )
         )
+
+        //Set status bar buttons to white
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = false
+        }
+
         setContent {
             val appState = rememberTravelPlannerAppState()
 

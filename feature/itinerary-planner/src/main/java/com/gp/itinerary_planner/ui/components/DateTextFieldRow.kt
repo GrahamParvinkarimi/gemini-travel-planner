@@ -65,7 +65,7 @@ fun DateTextFieldRow(
                 contentPadding = TextFieldDefaults.contentPaddingWithLabel(
                     top = Dimens.zeroPadding,
                     bottom = Dimens.zeroPadding,
-                    start = Dimens.standardPadding
+                    start = Dimens.padding_16
                 )
             )
         }

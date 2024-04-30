@@ -51,23 +51,23 @@ fun PlanYourTripCard(
         modifier = Modifier
             .fillMaxSize()
             .padding(
-                top = Dimens.standardPadding,
-                start = Dimens.standardPadding,
-                end = Dimens.standardPadding
+                top = Dimens.padding_16,
+                start = Dimens.padding_16,
+                end = Dimens.padding_16
             ),
-        verticalArrangement = Arrangement.spacedBy(Dimens.standardPadding),
+        verticalArrangement = Arrangement.spacedBy(Dimens.padding_16),
     ) {
         ElevatedCard(
             elevation = CardDefaults.cardElevation(
                 defaultElevation = Dimens.elevatedCardElevation
             ),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFFFFBFE)
-            ),
+                containerColor = Color.White
+            )
         ) {
             Column(
                 modifier = Modifier
-                    .padding(Dimens.standardPadding)
+                    .padding(Dimens.padding_16)
                     .fillMaxWidth(),
             ) {
                 //Plan Your Trip title
@@ -75,7 +75,7 @@ fun PlanYourTripCard(
                     text = stringResource(R.string.plan_your_trip_title),
                     style = MaterialTheme.typography.titleMedium
                 )
-                Spacer(modifier = Modifier.height(Dimens.standardPadding))
+                Spacer(modifier = Modifier.height(Dimens.padding_16))
 
                 //Row for location
                 TextFieldRow(label = stringResource(R.string.label_destination),
@@ -87,7 +87,7 @@ fun PlanYourTripCard(
                             contentDescription = stringResource(id = R.string.search_icon_content_description)
                         )
                     })
-                Spacer(modifier = Modifier.height(Dimens.standardPadding))
+                Spacer(modifier = Modifier.height(Dimens.padding_16))
 
                 //Row for to select start & end date of the trip
                 DateTextFieldRow(
@@ -114,7 +114,7 @@ fun PlanYourTripCard(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(Dimens.standardPadding))
+                Spacer(modifier = Modifier.height(Dimens.padding_16))
 
                 Row(
                     modifier = Modifier.align(Alignment.CenterHorizontally)

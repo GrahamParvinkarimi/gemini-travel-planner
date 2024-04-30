@@ -74,7 +74,7 @@ fun DateRangePickerDialog(
                 Text(
                     text = stringResource(id = R.string.date_picker_title_text),
                     modifier = Modifier
-                        .padding(Dimens.standardPadding)
+                        .padding(Dimens.padding_16)
                 )
             },
             headline = {
@@ -82,8 +82,8 @@ fun DateRangePickerDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Dimens.standardPadding,
-                            bottom = Dimens.smallPadding
+                            start = Dimens.padding_16,
+                            bottom = Dimens.padding_8
                         )
                 ) {
                     HeadlineDateSection(

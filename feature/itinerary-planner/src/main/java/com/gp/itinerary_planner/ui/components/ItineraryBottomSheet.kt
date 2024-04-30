@@ -93,9 +93,9 @@ fun ItineraryBottomSheet(
                 Column(
                     modifier = Modifier
                         .padding(
-                            start = Dimens.standardPadding,
-                            end = Dimens.standardPadding,
-                            top = Dimens.largePadding,
+                            start = Dimens.padding_16,
+                            end = Dimens.padding_16,
+                            top = Dimens.padding_24,
                             bottom = Dimens.itineraryHeaderPadding
                         )
                         .align(Alignment.CenterHorizontally)
@@ -107,7 +107,7 @@ fun ItineraryBottomSheet(
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleLarge
                     )
-                    Spacer(modifier = Modifier.height(Dimens.smallPadding))
+                    Spacer(modifier = Modifier.height(Dimens.padding_8))
 
                     //Date Range header
                     Text(
@@ -115,7 +115,7 @@ fun ItineraryBottomSheet(
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleSmall
                     )
-                    Spacer(modifier = Modifier.height(Dimens.largePadding))
+                    Spacer(modifier = Modifier.height(Dimens.padding_24))
 
                     //Itinerary content
                     Text(

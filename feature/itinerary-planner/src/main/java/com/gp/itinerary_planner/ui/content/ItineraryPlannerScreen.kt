@@ -1,4 +1,4 @@
-package com.gp.itinerary_planner.ui
+package com.gp.itinerary_planner.ui.content
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

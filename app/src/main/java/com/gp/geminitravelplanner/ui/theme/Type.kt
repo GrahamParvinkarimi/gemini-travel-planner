@@ -30,15 +30,25 @@ val MontserratFontFamily = FontFamily(
 )
 
 /**
+ * Title font on the Landing screen
+ */
+val RockSaltFont = GoogleFont(name = "RockSalt")
+
+val RockSaltFontFamily = FontFamily(
+    Font(googleFont = RockSaltFont, fontProvider = provider),
+    Font(resId = R.font.rocksalt_regular),
+)
+
+/**
  * Partially adapted from JetNews
  */
 
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = MontserratFontFamily,
+        fontFamily = RockSaltFontFamily,
         fontWeight = FontWeight.Light,
         fontSize = 57.sp,
-        lineHeight = 64.sp,
+        lineHeight = 100.sp,
         letterSpacing = 0.sp
     ),
     displayMedium = TextStyle(

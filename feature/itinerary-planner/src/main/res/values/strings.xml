@@ -27,4 +27,7 @@
     <string name="image_content_description">%1$s Image</string>
     <string name="arrow_content_description">Press to autofill destination with %1$s</string>
     <string name="travel_header_image_content_description">Travel header image</string>
+
+    <string name="landing_screen_button_text">Plan your trip</string>
+    <string name="landing_screen_title_text">AI Travel Planner</string>
 </resources>
