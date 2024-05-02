@@ -27,6 +27,7 @@ import com.gp.itinerary_planner.ui.constants.Dimens
 fun TextFieldRow(
     label: String,
     value: String,
+    errorMessage: String?,
     onValueChange: (String) -> Unit,
     leadingIcon: @Composable (() -> Unit)
 ) {
@@ -74,6 +75,21 @@ fun TextFieldRow(
                         Dimens.padding_16
                     }
                 )
+            )
+        }
+    }
+
+    /**
+     * Displaying an error message as a row of text below the Destination text field for now
+     * (spacing works better OOTB with the custom-styled M3 text fields)
+     */
+    Row {
+        if (errorMessage != null) {
+            Text(
+                text = errorMessage,
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.Red,
+                modifier = Modifier.padding(start = Dimens.padding_18, top = Dimens.padding_4)
             )
         }
     }

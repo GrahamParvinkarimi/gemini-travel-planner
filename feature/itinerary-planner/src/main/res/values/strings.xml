@@ -30,4 +30,5 @@
 
     <string name="landing_screen_button_text">Plan your trip</string>
     <string name="landing_screen_title_text">AI Travel Planner</string>
+    <string name="generic_error_message">The entered location was not found, please try again</string>
 </resources>

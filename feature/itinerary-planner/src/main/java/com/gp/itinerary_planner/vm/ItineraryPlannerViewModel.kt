@@ -54,7 +54,7 @@ class ItineraryPlannerViewModel @Inject constructor(
                     }
                 } else {
                     //Update inline error fields based on city/state returned
-                    _uiState.value = UiState.Error("Validation Error")
+                    _uiState.value = UiState.Error()
                 }
             } else {
                 _uiState.value =

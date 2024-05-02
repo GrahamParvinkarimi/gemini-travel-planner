@@ -12,7 +12,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 
 object ItineraryPlannerScreenUtils {
-    private const val GEMINI_ITINERARY_RESPONSE_REGEX = """\*\*(Day|Hotel|Additional|Accommodation|Transportation|Tips|Dining).+\*\*"""
+    private const val GEMINI_ITINERARY_RESPONSE_REGEX = """\*\*(Day|Hotel|Additional|Accommodation|Transportation|Tips|Dining|Food).+\*\*"""
 
     @JvmStatic
     fun isPlannerButtonEnabled(location: String, days: String): Boolean {

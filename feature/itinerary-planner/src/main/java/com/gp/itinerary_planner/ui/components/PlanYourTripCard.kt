@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Search
@@ -78,8 +80,14 @@ fun PlanYourTripCard(
                 Spacer(modifier = Modifier.height(Dimens.padding_16))
 
                 //Row for location
-                TextFieldRow(label = stringResource(R.string.label_destination),
+                TextFieldRow(
+                    label = stringResource(R.string.label_destination),
                     value = location.value,
+                    errorMessage = if (uiState is UiState.Error) {
+                        uiState.errorMessage ?: stringResource(id = R.string.generic_error_message)
+                    } else {
+                        null
+                    },
                     onValueChange = { location.value = it },
                     leadingIcon = {
                         Icon(
@@ -120,7 +128,11 @@ fun PlanYourTripCard(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
                     if (uiState is UiState.Loading) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .progressSemantics()
+                                .size(Dimens.circularProgressIndicatorSize)
+                        )
                     } else {
                         //Button to create itinerary
                         Button(
