@@ -4,7 +4,7 @@
 
 <br>
 Android application for planning a travel itinerary based on generative AI responses from Google's Gemini API.
-<br>
+
 * Android Architecture Components (MVVM)
 * Coroutines
 * Hilt
