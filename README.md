@@ -1,9 +1,17 @@
 # Google Gemini AI Travel Planner
 
+<img src="./readme-assets/readme_vid.gif" alt="App Demo Video" width="200"/>
+<img src="./readme-assets/readme_pic_1.png" alt="App Screenshot 1" width="300"/>
+<p float="left">
+    <img src="./readme-assets/readme_pic_2.png" alt="App Screenshot 2" width="300"/>
+    <img src="./readme-assets/readme_pic_3.png" alt="App Screenshot 3" width="300"/>
+</p>
+
 <img src="./readme-assets/readme_vid.gif" alt="App Screenshot 1" width="200"/>
 <img src="./readme-assets/readme_pic_1.png" alt="App Screenshot 1" width="200"/>
 <img src="./readme-assets/readme_pic_2.png" alt="App Screenshot 2" width="200"/>
 <img src="./readme-assets/readme_pic_3.png" alt="App Screenshot 3" width="200"/>
+
 
 Android application for planning a travel itinerary based on generative AI responses from Google's Gemini API.
 
