@@ -1,9 +1,5 @@
 # Google Gemini AI Travel Planner
 
-
-| <img src="./readme-assets/readme_vid.gif" alt="App Demo Video" width="200"/> | <img src="./readme-assets/readme_pic_1.png" alt="App Screenshot 1" width="200"/> | <img src="./readme-assets/readme_pic_2.png" alt="App Screenshot 2" width="200"/> | <img src="./readme-assets/readme_pic_3.png" alt="App Screenshot 3" width="200"/> |
-
-
 <img src="./readme-assets/readme_vid.gif" alt="App Screenshot 1" width="200"/>
 <img src="./readme-assets/readme_pic_1.png" alt="App Screenshot 1" width="200"/>
 <img src="./readme-assets/readme_pic_2.png" alt="App Screenshot 2" width="200"/>
