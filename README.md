@@ -1,4 +1,9 @@
-# Gemini Travel Planner
+# Google Gemini AI Travel Planner
+
+![App Screenshot 1](readme-assets/readme_pic_1.png)
+[Screenshot 2 placeholder]
+[Video placeholder]
+
 Android application for planning a travel itinerary based on generative AI responses from Google's Gemini API.
 
 * Android Architecture Components (MVVM)
@@ -10,15 +15,6 @@ Android application for planning a travel itinerary based on generative AI respo
 * Jetpack Navigation Compose
 * JUnit
 * Mockito
-
-## Screenshots
-
-[Screenshot 1 placeholder]
-[Screenshot 2 placeholder]
-
-## Video
-
-[Video placeholder]
 
 ## Features
 
