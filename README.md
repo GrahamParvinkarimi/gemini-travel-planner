@@ -1,6 +1,6 @@
 # Google Gemini AI Travel Planner
 
-![App Screenshot 1](readme-assets/readme_pic_1.png)
+![App Screenshot 1](./readme-assets/readme_pic_1.png)
 [Screenshot 2 placeholder]
 [Video placeholder]
 
