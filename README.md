@@ -1,6 +1,6 @@
 # Google Gemini AI Travel Planner
 
-![App Screenshot 1](./readme-assets/readme_pic_1.png) { width: 200px; }
+<img src="./readme-assets/readme_pic_1.png" alt="App Screenshot 1" width="200"/>
 [Screenshot 2 placeholder]
 [Video placeholder]
 
