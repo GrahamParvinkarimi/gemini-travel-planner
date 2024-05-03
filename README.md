@@ -1,7 +1,7 @@
 # Google Gemini AI Travel Planner
 
-| Sample Video                                                                              | Itinerary Planning Screen                                                                     | Itinerary from Gemini AI                                                                       |
-|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| Sample Video                                                                 | Itinerary Planning Screen                                                        | Itinerary from Gemini AI                                                         |
+|------------------------------------------------------------------------------|----------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
 | <img src="./readme-assets/readme_vid.gif" alt="App Demo Video" width="240"/> | <img src="./readme-assets/readme_pic_2.png" alt="App Screenshot 2" width="240"/> | <img src="./readme-assets/readme_pic_3.png" alt="App Screenshot 3" width="240"/> |
 
 <br>
