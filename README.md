@@ -14,7 +14,7 @@ An Android prototype application for planning a travel itinerary based on genera
 
 ### Features
 
-* The user can type in a location or select from one of four quick select location buttons
+* The user can type in a location or select from one of four quick-select location buttons
 * The user selects a date range that corresponds to the start & end date of the trip that they are planning on taking
 * The GeoApify API validates the location that the user enters
 * Upon successful validation from the the GeoApify API, the Google Gemini generative AI API is prompted to create an itinerary corresponding to the location & dates that the user entered
@@ -56,4 +56,4 @@ This app uses the GeoApify Geocoding API to validate the locations entered by th
 
 ### Google Gemini API
 
-The app uses the Google Gemini API to develop a Generative AI itinerary based on the entered location and dates. To use the API, you will need to obtain an API key from https://ai.google.dev/gemini-api/docs/api-key and add it to the project's `local.properties`.
+This app uses the Google Gemini API to develop a generative AI itinerary based on the entered location and dates. To use the API, you will need to obtain an API key from https://ai.google.dev/gemini-api/docs/api-key and add it to the project's `local.properties`.
