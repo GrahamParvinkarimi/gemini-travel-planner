@@ -70,7 +70,8 @@ fun ItineraryPlannerScreen(
             ItineraryBottomSheet(
                 outputText = uiState.outputText,
                 showBottomSheet = showBottomSheet,
-                dateRangeString = dateRangeString.value
+                dateRangeString = dateRangeString.value,
+                locationString = locationString.value
             )
         }
     }

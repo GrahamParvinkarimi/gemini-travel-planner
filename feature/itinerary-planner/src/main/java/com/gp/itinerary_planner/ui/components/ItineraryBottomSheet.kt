@@ -39,7 +39,8 @@ import kotlinx.coroutines.launch
 fun ItineraryBottomSheet(
     outputText: String,
     showBottomSheet: MutableState<Boolean>,
-    dateRangeString: String
+    dateRangeString: String,
+    locationString: String
 ) {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
@@ -103,18 +104,32 @@ fun ItineraryBottomSheet(
                 ) {
                     //Itinerary Title
                     Text(
-                        text = stringResource(id = R.string.itinerary_title, dateRangeString),
+                        text = stringResource(
+                            id = R.string.itinerary_title
+                        ),
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleLarge
                     )
+
                     Spacer(modifier = Modifier.height(Dimens.padding_8))
 
-                    //Date Range header
+                    //Location Header
                     Text(
-                        text = dateRangeString,
+                        text = locationString,
                         color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.titleSmall
+                        style = MaterialTheme.typography.titleMedium
                     )
+
+                    Row {
+                        Spacer(modifier = Modifier.weight(1f))
+                        //Date Range header
+                        Text(
+                            text = dateRangeString,
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+
                     Spacer(modifier = Modifier.height(Dimens.padding_24))
 
                     //Itinerary content
