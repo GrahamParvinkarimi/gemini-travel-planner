@@ -27,8 +27,8 @@ An Android prototype application for planning a travel itinerary based on genera
 * Jetpack Navigation Compose
 * Hilt/Dagger for Dependency Injection
 * Retrofit & OkHttp for HTTP calls
+* Moshi for JSON parsing
 * Coroutines for concurrency & asynchronous operations
-* JUnit & Mockito for Unit tests
 
 ## Modules
 
