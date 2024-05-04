@@ -42,7 +42,7 @@ An Android prototype application for planning a travel itinerary based on genera
 This project is set up to retrieve the necessary API keys from `local.properties` by default. You will need to add your API keys to `local.properties` for the APIs mentioned below. This section in `build.gradle.kts` within the `app` module retrieves the API keys from `local.properties`:
 
 ```
-        //load the api keys from local.properties file
+        //load the api keys from local.properties
         val keystoreFile = project.rootProject.file("local.properties")
         val properties = Properties()
         properties.load(keystoreFile.inputStream())
