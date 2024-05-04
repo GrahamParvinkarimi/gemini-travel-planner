@@ -24,7 +24,7 @@ android {
             useSupportLibrary = true
         }
 
-        //load the api keys from local.properties file
+        //load the api keys from local.properties
         val keystoreFile = project.rootProject.file("local.properties")
         val properties = Properties()
         properties.load(keystoreFile.inputStream())

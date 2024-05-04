@@ -1,6 +1,6 @@
 # Google Gemini AI Travel Planner
 
-An Android prototype application for planning a travel itinerary based on generative AI responses from Google's Gemini API.
+An Android prototype application for planning a travel itinerary based on generative AI responses from Google's Gemini API
 
 <br>
 
