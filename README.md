@@ -27,6 +27,7 @@ An Android prototype application for planning a travel itinerary based on genera
 * Retrofit & OkHttp for HTTP calls
 * Moshi for JSON parsing
 * Coroutines for concurrency & asynchronous operations
+* JUnit & Mockito for unit tests
 
 ## Modules
 
