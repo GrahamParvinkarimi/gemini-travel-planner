@@ -4,9 +4,7 @@ An Android prototype application for planning a travel itinerary based on genera
 
 <br>
 
-| Demo Video                                                                   | Itinerary Planning Screen                                                        | Itinerary from Gemini AI                                                         |
-|------------------------------------------------------------------------------|----------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| <img src="./readme-assets/readme_vid.gif" alt="App Demo Video" width="240"/> | <img src="./readme-assets/readme_pic_2.png" alt="App Screenshot 2" width="240"/> | <img src="./readme-assets/readme_pic_3.png" alt="App Screenshot 3" width="240"/> |
+| Demo Video                                                                   
 
 <br>
 
