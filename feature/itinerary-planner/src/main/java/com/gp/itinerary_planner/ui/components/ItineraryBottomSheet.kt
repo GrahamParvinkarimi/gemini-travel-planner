@@ -117,18 +117,15 @@ fun ItineraryBottomSheet(
                     Text(
                         text = locationString,
                         color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleSmall
                     )
 
-                    Row {
-                        Spacer(modifier = Modifier.weight(1f))
-                        //Date Range header
-                        Text(
-                            text = dateRangeString,
-                            color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
+                    //Date Range header
+                    Text(
+                        text = dateRangeString,
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.titleSmall
+                    )
 
                     Spacer(modifier = Modifier.height(Dimens.padding_24))
 
