@@ -163,6 +163,7 @@ class ItineraryPlannerViewModelTest {
 
         // Then
         assertTrue(viewModel.uiState.first() is UiState.Error)
+        assertTrue((viewModel.uiState.first() as UiState.Error).errorMessage == "Error message")
     }
 
     @Test
