@@ -31,7 +31,7 @@ class ItineraryPlannerViewModel @Inject constructor(
     ) {
         _uiState.value = UiState.Loading
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val locationResult = validateLocationUseCase(
                 location
             )
